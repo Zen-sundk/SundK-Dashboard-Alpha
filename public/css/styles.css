@@ -1,0 +1,674 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* GLOBAL STYLES */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+/* --- Admin Modal Specific Styles --- */
+.admin-only {
+  display: none;
+}
+
+.admin-modal {
+  display: none; /* hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 200; /* Higher than other modals if needed */
+}
+
+.admin-modal.active {
+  display: flex;
+}
+
+.admin-modal-content {
+  background: #fff;
+  padding: 20px;
+  width: 400px;
+  max-width: 90%;
+  border-radius: 6px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.admin-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.8em;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Optionally, style the admin login form further */
+#adminLoginForm .form-group {
+  margin-bottom: 1rem;
+}
+
+#adminLoginForm label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+#adminLoginForm input[type="text"],
+#adminLoginForm input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#adminLoginForm .submit-btn {
+  background-color: #3b82f6;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#adminLoginForm .submit-btn:hover {
+  background-color: #2563eb;
+}
+
+.logout-btn {
+  background: #ef4444; /* red color for logout */
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+/* NAVIGATION */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .nav-logo img {
+    height: 60px;
+  }
+  .nav-title {
+    flex: 1;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
+  }
+  .nav-home a {
+    background:rgb(112, 174, 240);          
+    color: #fff;                  
+    padding: 8px 16px;            
+    border-radius: 20px;          
+    text-decoration: none;        
+    font-size: 1em;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .nav-home a:hover {
+    background:rgb(58, 60, 63);          
+    transform: translateY(-2px);  
+  }
+  
+  #viewTextBtn {
+    background-color: #162E59; 
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 25px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  #viewTextBtn:hover {
+    background-color:rgb(34, 64, 119);
+    transform: scale(1.05);
+  }
+  
+  #viewTableBtn {
+    background-color: #162E59; 
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 25px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  #viewTableBtn:hover {
+    background-color: rgb(34, 64, 119);
+    transform: scale(1.05);
+  }
+  
+  /* HOMEPAGE */
+  .home {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Header section style */
+.home {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Header section style */
+.home h1 {
+    font-size: 2.5em;
+    padding: 40px;
+    background-color: #e6e0ff;
+    border-radius: 15px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+/* Subtitle style */
+.home h1::after {
+    content: "Access relevant cases, with their graphs and tables";
+    display: block;
+    font-size: 0.4em;
+    color: #666;
+    margin-top: 10px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.cases {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Four equal columns */
+    gap: 20px;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Update case box styling */
+.case-box {
+    background: #fff;
+    padding: 25px; /* Increased padding */
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    min-height: 100px; /* Increased height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1em; /* Larger font size */
+    font-weight: 500; /* Slightly bolder text */
+    text-align: center;
+}
+
+  /* CASE PAGE */
+  .case-page {
+    max-width: 1500px;   
+    margin: 4px auto;
+    padding: 0 20px;
+    max-height: 90%;
+  }
+  
+  .case-page h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 1px;
+  }
+  
+  .summary {
+    text-align: left;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  /* GRAPH SECTION */
+  .graph-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;  
+    margin-bottom: 5px;  
+  }
+  
+  .graph-item {
+    text-align: center;
+  }
+  
+  .graph-item h3 {
+    margin-bottom: 1px;
+    font-size: 1em;
+  }
+  
+  .graph-img {
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .graph-img:hover {
+    transform: scale(1.03);
+  }
+  
+/* TABLE SECTION */
+.table-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 5px;
+}
+
+.table-container {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow-x: auto;
+  padding: 5px;
+}
+
+/*styling for table titles */
+.table-container h3 {
+  text-align: center;
+  margin-bottom: 2px;
+  font-size: 1em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+
+table th, table td {
+  padding: 8px;
+  border: 1px solid #eee;
+  text-align: left;
+}
+
+table th {
+  background: #f5f5f5;
+}
+
+  
+  /* FOOTER */
+  .case-footer {
+    /*justify-content: center;*/
+    display: flex;
+    text-align: left;
+    font-size: 0.82em;
+    color: #777;
+    margin-bottom: 5px;
+  }
+  
+/* MODAL container */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+/* When active, display as flex */
+.modal.active {
+  display: flex;
+}
+
+/* Modal content container */
+.modal-content {
+  background-color: #fff;
+  width: 1050px;
+  max-width: 100%;
+  border-radius: 6px;
+  position: relative;
+  /* Optional: remove padding if you want the SVG flush with the edges */
+  padding: 0;
+}
+
+/* Force a default size for inline SVGs */
+.modal-content svg {
+  width: 1000px;
+  height: auto;
+}
+
+/* Close button positioned relative to modal-content */
+.close {
+  position: relative;
+  bottom: 22rem;
+  left: 65rem;
+  font-size: 3em;
+  color: #000;
+  cursor: pointer;
+  z-index: 9;
+}
+
+/* ---------------------------------------------------------------------
+   FORMS & MODALS
+--------------------------------------------------------------------- */
+
+.new-modal-content {
+  background-color: #fff;
+  padding: 20px;
+  width: 480px;
+  max-width: 90%;
+  border-radius: 6px;
+  position: relative;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="file"],
+textarea {
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  background-color: #162E59;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #162E59;
+}
+
+.create-case-btn {
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background: #162E59;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.create-case-btn:hover {
+  background-color:rgb(71, 95, 148);
+}
+
+#newCaseModal .close {
+  position: relative;
+  bottom: 22rem;
+  left: 65rem;
+  color: #000;
+  cursor: pointer;
+  z-index: 9;
+  font-size: 0px;
+}
+
+#newCaseModal h2 {
+display: contents;
+}
+
+/* Wrap last two PDF fields side by side */
+.pdf-row {
+  display: flex;
+  gap: 1rem; 
+}
+
+.pdf-row .form-group {
+  flex: 1; 
+}
+
+
+/* Specific styling for the PDF modal */
+#pdfModal {
+  display: none;
+  position: fixed;
+  z-index: 1000; /* ensure it overlays other content */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+#pdfModal.active {
+  display: flex;
+}
+
+#pdfModal .modal-content {
+  background-color: #fff;
+  width: 90%;
+  max-width: 1200px;
+  border-radius: 8px;
+  position: relative;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#pdfModal .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+#pdfModal iframe {
+  width: 100%;
+  height: 850px;
+  border: none;
+  border-radius: 4px;
+}
+
+#downloadPdfLink {
+  display: inline-block;
+  background-color: #162E59;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+#downloadPdfLink:hover {
+  background-color: rgb(34, 64, 119);
+}
+
+/* Specific styling for the Graph Zoom Modal */
+#graphModal {
+  display: none;
+  position: fixed;
+  z-index: 1000; /* Ensure it overlays other content */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+}
+
+#graphModal.active {
+  display: flex;
+}
+
+#graphModal .modal-content {
+  background-color: #fff;
+  max-width: 1200px;
+  border-radius: 8px;
+  position: relative;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+#graphModal .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 2rem;
+  color: #333;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+/* DASHBOARD */
+.dashboard-content {
+    margin-top: 60px;
+    padding: 20px;
+}
+
+.quick-stats h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 1.5em;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(200px, 250px));
+    gap: 20px;
+    justify-content: center;
+}
+
+.stat-box {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-box h3 {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.stat-box p {
+    font-size: 1.8em;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Basic form styling */
+.form-group {
+  margin-bottom: 1rem;
+}
+label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+}
+input[type="text"], input[type="file"], textarea {
+  width: 100%;
+  padding: 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.submit-btn {
+  background-color: #162E59;
+  color: #fff; 
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.create-case-btn {
+  margin-top: 2rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.case-box {
+  position: relative;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.case-actions {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  /* These actions should only be visible to admins.
+     Later, you can hide them by default and show them only after an admin login check. */
+}
+.case-actions img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.case-title {
+  font-weight: 600;
+}
+
+
+/* Different background colors for cases */
+.case-box:hover {
+  transform: scale(1.1);
+}
+
+/* Odd case-boxes: white text on dark blue background */
+.case-box:nth-child(odd) {
+  background-color: #162E59;
+  color: #fff;
+}
+
+/* Even case-boxes: black text on light blue background */
+.case-box:nth-child(even) {
+  background-color: #D8E5FF;
+  color: #000;
+}

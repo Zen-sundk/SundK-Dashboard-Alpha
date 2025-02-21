@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SundK Dashboard</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">
+      <img src="/images/logo.png" alt="Logo">
+    </div>
+    <!-- Logout-knap, skjult som standard -->
+    <div id="adminLogout" style="display: none;">
+      <button id="logoutBtn" class="logout-btn">Logout</button>
+    </div>
+  </nav>
+
+  <main class="home">
+    <!-- Admin Login Modal (skjult som standard) -->
+    <div id="adminLoginModal" class="modal admin-modal">
+      <div class="admin-modal-content">
+        <span id="closeAdminModalBtn" class="admin-close">&times;</span>
+        <h2>Admin Login</h2>
+        <form id="adminLoginForm">
+          <div class="form-group">
+            <label for="adminUsername">Username:</label>
+            <input type="text" id="adminUsername" name="adminUsername" required>
+          </div>
+          <div class="form-group">
+            <label for="adminPassword">Password:</label>
+            <input type="password" id="adminPassword" name="adminPassword" required>
+          </div>
+          <button type="submit" class="submit-btn">Login</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Dashboard Header og Case Listings -->
+    <h1>SundK Dashboard</h1>
+    <div class="cases">
+      <% if (cases.length === 0) { %>
+        <p>No cases found.</p>
+      <% } else { %>
+        <% cases.forEach(function(caseItem) { %>
+          <div class="case-box" data-case="<%= caseItem.caseName %>" onclick="window.location.href='/cases/<%= caseItem.caseName %>'">
+            <span class="case-title"><%= caseItem.caseName %></span>
+            <div class="case-actions admin-only">
+              <span class="edit-icon" title="Edit">✏️</span>
+              <span class="delete-icon" title="Delete">🗑️</span>
+            </div>
+          </div>
+        <% }); %>
+      <% } %>
+    </div>
+    <!-- Knap til at oprette en ny case (kun synlig for admin) -->
+    <button id="openNewCaseModalBtn" class="create-case-btn admin-only">+ Create New Case</button>
+  </main>
+
+<!-- "New Case" Modal (for creating a case) -->
+<div id="newCaseModal" class="modal">
+    <div class="new-modal-content">
+      <span id="closeNewCaseModalBtn" class="close">×</span>
+      <h2>New Case</h2>
+      <form id="newCaseForm" action="/createCase" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="caseName">Case Name (folder name):</label>
+          <input type="text" id="caseName" name="caseName" required>
+        </div>
+        <div class="form-group">
+          <label for="displayTitle">Case Title (shown on page):</label>
+          <input type="text" id="displayTitle" name="displayTitle" required>
+        </div>
+        <div class="form-group">
+          <label for="synopsis">Synopsis:</label>
+          <textarea id="synopsis" name="synopsis" rows="3"></textarea>
+        </div>
+  
+        <!-- 3 SVG uploads -->
+        <div class="form-group">
+          <label for="graph1">Graph 1 (SVG):</label>
+          <input type="file" id="graph1" name="graph1" accept=".svg" required>
+        </div>
+        <div class="form-group">
+          <label for="graph2">Graph 2 (SVG):</label>
+          <input type="file" id="graph2" name="graph2" accept=".svg" required>
+        </div>
+        <div class="form-group">
+          <label for="graph3">Graph 3 (SVG):</label>
+          <input type="file" id="graph3" name="graph3" accept=".svg" required>
+        </div>
+  
+        <!-- 3 Table Image uploads -->
+        <div class="form-group">
+          <label for="tableImage1">Table 1 Image (PNG/JPG):</label>
+          <input type="file" id="tableImage1" name="tableImage1" accept="image/*" required>
+        </div>
+        <div class="form-group">
+          <label for="tableImage2">Table 2 Image (PNG/JPG):</label>
+          <input type="file" id="tableImage2" name="tableImage2" accept="image/*" required>
+        </div>
+        <div class="form-group">
+          <label for="tableImage3">Table 3 Image (PNG/JPG):</label>
+          <input type="file" id="tableImage3" name="tableImage3" accept="image/*" required>
+        </div>
+  
+        <!-- PDF fields side by side -->
+        <div class="pdf-row">
+          <div class="form-group">
+            <label for="pdf1">PDF for Tabel 1:</label>
+            <input type="file" id="pdf1" name="pdf1" accept="application/pdf">
+          </div>
+          <div class="form-group">
+            <label for="pdf2">PDF for Tekst:</label>
+            <input type="file" id="pdf2" name="pdf2" accept="application/pdf">
+          </div>
+        </div>
+  
+        <button type="submit" class="submit-btn">Create Case</button>
+      </form>
+    </div>
+  </div>  
+
+  <!-- Client-Side Scripts -->
+  <script src="/js/adminLogin.js"></script>
+  <script src="/js/createCaseModal.js"></script>
+  <script src="/js/caseActions.js"></script>
+  <script src="/js/editCaseModal.js"></script>
+  <!-- Inkludér den nye PDF-modal script-fil -->
+  <script src="/js/pdfModal.js"></script>
+</body>
+</html>

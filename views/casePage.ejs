@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= caseData.displayTitle %></title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-logo">
+      <img src="/images/logo.png" alt="Logo">
+    </div>
+    <div class="nav-home">
+      <!-- New buttons on the navbar for viewing PDF (handled by pdfModal.js) -->
+      <button id="viewTextBtn" class="nav-btn">Vis Tekst</button>
+      <button id="viewTableBtn" class="nav-btn">Vis Tabel 1</button>
+      <a href="/">Tilbage til oversigten</a>
+    </div>
+  </nav>
+  <main class="case-page">
+    <h1><%= caseData.displayTitle %></h1>
+    <p class="summary"><%= caseData.synopsis %></p>
+    <!-- Graphs Section -->
+    <section class="graph-section">
+      <div class="graph-item">
+        <h3>(A) Sygdommens incidens i befolkningen</h3>
+        <!-- Inline SVG rendered without escaping -->
+        <div class="graph-img"><%- caseData.svgGraphs.graph1 %></div>
+      </div>
+      <div class="graph-item">
+        <h3>(B) Patienternes overlevelse og dødelighed (case-fatality)</h3>
+        <div class="graph-img"><%- caseData.svgGraphs.graph2 %></div>
+      </div>
+      <div class="graph-item">
+        <h3>(C) Sygdommens dødelighed i befolkningen</h3>
+        <div class="graph-img"><%- caseData.svgGraphs.graph3 %></div>
+      </div>
+    </section>
+    <!-- Tables Section -->
+    <section class="table-section">
+      <div class="table-item">
+        <div id="table1" class="table-container"></div>
+      </div>
+      <div class="table-item">
+        <div id="table2" class="table-container"></div>
+      </div>
+      <div class="table-item">
+        <div id="table3" class="table-container"></div>
+      </div>
+    </section>
+    <footer class="case-footer">
+      <p>
+        *Standardiseret for alder.<br>
+        **Justeret for alder.<br>
+        Kaplan-Meier overlevelsesfunktioner og hazard ratioer er beregnet med "period analysis" metoden.
+      </p>
+    </footer>
+  </main>
+
+  <!-- Modal for PDF display (already existing) -->
+  <div id="pdfModal" class="modal">
+    <div class="modal-content">
+      <span id="closePdfModal" class="close"></span>
+      <iframe id="pdfViewer" width="100%" height="850px"></iframe>
+      <a id="downloadPdfLink" href="" download>Download PDF</a>
+    </div>
+  </div>
+
+  <!-- New Modal for Graph Zoom -->
+  <div id="graphModal" class="modal">
+    <div id="graphModalContent" class="modal-content">
+      <span id="closeGraphModal" class="close"></span>
+      <!-- The enlarged graph will be injected here -->
+    </div>
+  </div>
+
+  <script src="/js/table.js"></script>
+  <script src="/js/pdfModal.js"></script>
+  <!-- Include the new graph modal script -->
+  <script src="/js/graphModal.js"></script>
+</body>
+</html>
