@@ -1,0 +1,42 @@
+<!-- adminLogo.ejs -->
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Opdater Site Logo</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <h1>Opdater Site Logo</h1>
+  <form id="logoForm" action="/admin/logo" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="logo">Vælg et nyt logo:</label>
+      <input type="file" id="logo" name="logo" accept="image/*" required>
+    </div>
+    <button type="submit" class="submit-btn">Opdater Logo</button>
+  </form>
+
+  <script>
+    document.getElementById("logoForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      try {
+        const res = await fetch("/admin/logo", {
+          method: "POST",
+          body: formData
+        });
+        const result = await res.json();
+        if (result.success) {
+          alert("Logo opdateret!");
+          // evt. opdater logoet på siden dynamisk
+        } else {
+          alert("Fejl: " + result.message);
+        }
+      } catch (error) {
+        console.error("Fejl ved upload af logo:", error);
+        alert("Der opstod en fejl.");
+      }
+    });
+  </script>
+</body>
+</html>

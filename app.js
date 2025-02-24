@@ -32,6 +32,10 @@ app.use('/', adminRoutes);
 const caseRoutes = require('./routes/caseRoutes');
 app.use('/', caseRoutes);
 
+// Importér dine site routes
+const siteRoutes = require('./routes/siteRoutes');
+app.use('/', siteRoutes);
+
 /**
  * GET /
  * Dynamically render the home page by fetching all cases from MongoDB.
@@ -70,3 +74,4 @@ app.get('/cases/:caseName', async (req, res) => {
 app.listen(3000, () => {
   console.log('Server listening on http://localhost:3000');
 });
+
